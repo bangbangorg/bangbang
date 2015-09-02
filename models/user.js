@@ -35,3 +35,21 @@ var Model = mongoose.model('user', BaseSchema,'user');
 exports.create = function(obj,cb){
     Model.create(obj,cb)
 }
+
+/**
+ * ∫√∆¿
+ * @param userId
+ * @param cb
+ */
+exports.a = function(userId,cb){
+    Model.update({_id:userId},{$inc:{A:1}},cb)
+}
+
+/**
+ * ≤Ó∆¿
+ * @param userId
+ * @param cb
+ */
+exports.f = function(userId,cb){
+    Model.update({_id:userId},{$inc:{F:1}},cb)
+}
