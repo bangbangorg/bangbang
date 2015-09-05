@@ -12,3 +12,11 @@ exports.grab = function(req,res){
         res.json(response.buildOK(rows))
     })
 }
+exports.find = function(obj,cb){
+    Order.find({}, function (err, rows) {
+        if (err) {
+            return res.json(response.buildError())
+        }
+        res.json(response.buildOK(rows))
+    })
+}

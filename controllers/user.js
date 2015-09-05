@@ -12,7 +12,20 @@ exports.reg = function(req,res){
         res.json(response.buildOK(rows))
     })
 }
-
+exports.login = function(req,res){
+    res.json(response.buildOK())
+}
+exports.requestPasswordReset = function(req,res) {
+    res.json(response.buildOK())
+}
+exports.modify = function(req,res){
+    User.modify({_id:req.params.userId},req.body,function(err,docs){
+        if(err){
+            return res.json(response.buildError())
+        }
+        res.json(response.buildError())
+    })
+}
 /**
  * บรฦภ
  * @param req

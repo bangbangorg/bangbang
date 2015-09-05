@@ -16,8 +16,8 @@ var BaseSchema = new Schema({
     },
     orderInfo:{
         totalNum:Number,//接单数
-        A:String,//好评
-        F:String//差评
+        A:Number,//好评
+        F:Number//差评
     },
     ewallet:{//电子钱包
         account:Number,//账户余额
@@ -35,14 +35,16 @@ var Model = mongoose.model('user', BaseSchema,'user');
 exports.create = function(obj,cb){
     Model.create(obj,cb)
 }
-
+exports.modify = function(query,obj,cb){
+    Model.update(query,{$set:obj},cb)
+}
 /**
  * 好评
  * @param userId
  * @param cb
  */
 exports.a = function(userId,cb){
-    Model.update({_id:userId},{$inc:{A:1}},cb)
+    Model.update({_id:userId},{$inc:{orderInfo:{A:1}}},cb)
 }
 
 /**
@@ -51,5 +53,5 @@ exports.a = function(userId,cb){
  * @param cb
  */
 exports.f = function(userId,cb){
-    Model.update({_id:userId},{$inc:{F:1}},cb)
+    Model.update({_id:userId},{$inc:{orderInfo:{F:1}}},cb)
 }

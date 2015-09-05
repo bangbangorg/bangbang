@@ -15,8 +15,11 @@ var BaseSchema = new Schema({
     createdAt: {type:Date , default:Date.now},
     updatedAt : {type:Date , default:Date.now}
 });
-var Model = mongoose.model('user', BaseSchema,'user');
+var Model = mongoose.model('order', BaseSchema,'order');
 
 exports.create = function(obj,cb){
     Model.create(obj,cb)
+}
+exports.find = function(obj,cb){
+    Model.find(obj,cb)
 }
