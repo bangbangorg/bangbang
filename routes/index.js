@@ -20,7 +20,7 @@ router.get('/user/requestPasswordReset', user.requestPasswordReset)//密码重�
 router.post('/order', order.create)//生成订单
 router.get('/order', order.find)//订单列表 默认最新未抢 search:延迟，实时、已抢，未抢
 router.post('/grab/:userId/:orderId', order.grab)//抢单
-router.delete('/grab/:userId/:orderId', order.grab)//取消此单
+router.delete('/grab/:userId/:orderId', order.delGrab)//取消此单
 /* favorite */
 router.post('/favorite/:userId/:orderId', favorite.collect)//收藏
 router.delete('/favorite/:userId/:orderId', favorite.cancel)//取消收藏

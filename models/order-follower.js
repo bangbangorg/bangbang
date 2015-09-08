@@ -18,3 +18,6 @@ var Model = mongoose.model('order_follower', BaseSchema,'order_follower');
 exports.create = function(obj,cb){
     Model.create(obj,cb)
 }
+exports.remove = function(obj,cb){
+    Model.remove(obj,cb)
+}
