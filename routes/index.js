@@ -1,7 +1,7 @@
 var express = require('express');
 var user = require('../controllers/user');
 var order = require('../controllers/order');
-//var favorite = require('../controllers/favorite');
+var favorite = require('../controllers/favorite');
 var router = express.Router();
 
 /* GET home page. */
@@ -17,14 +17,14 @@ router.get('/user/:userId/f', user.f)//差评
 router.get('/user/requestPasswordReset', user.requestPasswordReset)//密码重设
 
 /* order */
-//router.post('/order', order.create)//生成订单
+router.post('/order', order.create)//生成订单
 router.get('/order', order.find)//订单列表 默认最新未抢 search:延迟，实时、已抢，未抢
 router.post('/grab/:userId/:orderId', order.grab)//抢单
 router.delete('/grab/:userId/:orderId', order.grab)//取消此单
 /* favorite */
-//router.post('/favorite/:userId/:orderId,', favorite.create)//收藏
-//router.delete('/favorite/:userId/:orderId,', favorite.remove)//取消收藏
-
+router.post('/favorite/:userId/:orderId', favorite.collect)//收藏
+router.delete('/favorite/:userId/:orderId', favorite.cancel)//取消收藏
+router.get('/favorite/:userId', favorite.findByUser)//查看用户收藏列表
 
 
 module.exports = router;
