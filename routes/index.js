@@ -24,7 +24,7 @@ router.delete('/grab/:userId/:orderId', order.delGrab)//取消此单
 /* favorite */
 router.post('/favorite/:userId/:orderId', favorite.collect)//收藏
 router.delete('/favorite/:userId/:orderId', favorite.cancel)//取消收藏
-router.get('/favorite/:userId', favorite.findByUser)//查看用户收藏列表
+router.get('/favorite/:userId', favorite.find)//查看用户收藏列表
 
 
 module.exports = router;

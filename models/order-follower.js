@@ -2,7 +2,6 @@
  * 接单用户
  * Created by zoey on 2015/8/16.
  */
-var Object = require('../models/classes');
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
