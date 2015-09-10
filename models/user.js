@@ -35,6 +35,9 @@ var Model = mongoose.model('user', BaseSchema,'user');
 exports.create = function(obj,cb){
     Model.create(obj,cb)
 }
+exports.findOne = function(query,cb){
+    Model.findOne(query,cb)
+}
 exports.modify = function(query,obj,cb){
     Model.update(query,{$set:obj},cb)
 }

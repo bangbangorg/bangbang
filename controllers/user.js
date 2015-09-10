@@ -2,10 +2,12 @@
  * Created by zoey on 2015/8/11.
  */
 var response = require("../common/response")
+var util = require("../common/util")
 var User = require("../models/user")
 
 exports.reg = function(req,res){
-    User.create(req.query,function(err,rows){
+    req.body.password = util.createHash(req.body.password)
+    User.create(req.body,function(err,rows){
         if(err){
             return res.json(response.buildError())
         }
@@ -13,6 +15,23 @@ exports.reg = function(req,res){
     })
 }
 exports.login = function(req,res){
+    User.findOne({phoneNo:req.body.phoneNo},function(err,doc){
+        if(err){
+            return res.json(response.buildError())
+        }
+        if(doc){
+            //User exists but wrong password, log the error
+            if (!util.isValidPassword(doc, password)){
+                return res.json(response.buildError("Invalid Password"));
+            }
+            req.session.user = doc;
+            doc = doc.toJSON()
+            delete doc.password;
+            res.json(response.buildOK(doc));
+        }else{
+            return res.json(response.buildError("User Not found."));
+        }
+    })
     res.json(response.buildOK())
 }
 exports.requestPasswordReset = function(req,res) {

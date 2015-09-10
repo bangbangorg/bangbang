@@ -8,7 +8,7 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
     res.render('index', { title: 'Express' });
 });
-router.post('/reg', user.reg)//手机号注册
+router.post('/reg', user.reg)//｛phoneNo:xx,password:xx｝
 router.post('/login', user.login)//登录
 /* user */
 router.post('/user/modify/:userId', user.modify)//修改用户资料
