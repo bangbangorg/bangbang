@@ -1,5 +1,5 @@
 var express = require('express');
-var user = require('../controllers/user');
+var users = require('../controllers/users');
 var order = require('../controllers/order');
 var favorite = require('../controllers/favorite');
 var router = express.Router();
@@ -8,13 +8,17 @@ var router = express.Router();
 router.get('/', function(req, res, next) {
     res.render('index', { title: 'Express' });
 });
-router.post('/reg', user.reg)//｛phoneNo:xx,password:xx｝
-router.post('/login', user.login)//登录
 /* user */
-router.post('/user/modify/:userId', user.modify)//修改用户资料
-router.get('/user/:userId/a', user.a)//好评
-router.get('/user/:userId/f', user.f)//差评
-router.get('/user/requestPasswordReset', user.requestPasswordReset)//密码重设
+router.get('/login', users.login);
+router.post('/usersByMobilePhone', users.usersByMobilePhone);//使用手机号码一键注册或登录 require mobilePhoneNumber,smsCode
+router.post('/requestSmsCode', users.requestSmsCode);//发送短信/语音验证码  require mobilePhoneNumber
+router.get('/users/:uid', users.findById);
+router.put('/users/:uid', users.update);
+router.put('/users/:uid/updatePassword', users.updatePassword);
+router.post('/requestPasswordResetBySmsCode', users.requestPasswordResetBySmsCode);//使用短信验证码重置用户密码
+router.put('/resetPasswordBySmsCode/:smsCode', users.resetPasswordBySmsCode);//通过手机收到的验证码设置新的密码
+router.get('/users/:uid/a', users.a)//好评
+router.get('/users/:uid/f', users.f)//差评
 
 /* order */
 router.post('/order', order.create)//生成订单

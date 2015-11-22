@@ -6,7 +6,7 @@ var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
 var BaseSchema = new Schema({
-    phoneNo:String,
+    mobilePhoneNumber:String,
     password:String,
     userInfo:{
         name:String,
@@ -32,13 +32,60 @@ var BaseSchema = new Schema({
 });
 var Model = mongoose.model('user', BaseSchema,'user');
 
-exports.create = function(obj,cb){
-    Model.create(obj,cb)
+exports.findAndCreate = function(query,obj,cb){
+    Model.findOne(query,function(err,doc){
+        if(!doc){
+            Model.create(obj,function(err,doc){
+                cb(err,doc)
+            });
+        }else{
+            cb(err,doc);
+        }
+    });
 }
+/**
+ * 判断用户是否存在
+ * @param username
+ * @param cb
+ */
 exports.findOne = function(query,cb){
     Model.findOne(query,cb)
 }
-exports.modify = function(query,obj,cb){
+/**
+ * 查询数据除去密码
+ * @param param
+ * @param cb
+ */
+exports.findOneNoPwd = function(param,cb){
+    Model.findOne(param,function(err,doc){
+        if(doc){
+            try{
+                doc = doc.toJSON()
+                delete doc.password;
+            }catch(err){
+                console.log(err)
+            }
+        }
+        cb(err,doc)
+    })
+}
+/**
+ * 通过id 查询用户
+ * @param param
+ * @param cb
+ */
+exports.findById = function(id,cb){
+    Model.findById(id,cb)
+}
+exports.findByIdAndUpdate = function(id,obj,cb){
+    obj.updatedAt=new Date();
+    Model.findByIdAndUpdate(id,obj,function(err,doc){
+        cb(err,{
+            updatedAt:obj.updatedAt,
+        })
+    })
+}
+exports.update = function(query,obj,cb){
     Model.update(query,{$set:obj},cb)
 }
 /**

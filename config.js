@@ -6,6 +6,9 @@ module.exports = {
     upload_dir: path.join(__dirname, 'public', 'upload'),
     mongodb: {
         url: 'mongodb://127.0.0.1:27017/bangbang',
+    },
+    sms : {
+        url : 'xx'
     }
 };
 

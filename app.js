@@ -8,6 +8,7 @@ var http = require('http');
 var config = require('./config');
 var mongoose = require('mongoose');
 require('./models/template/mongodb')(config,mongoose);
+require('libs/lj');
 var routes = require('./routes/index');
 var app = express();
 
